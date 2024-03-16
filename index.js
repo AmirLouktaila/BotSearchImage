@@ -181,7 +181,7 @@ bot.on('text', async (ctx) => {
     const text = ctx.message.text;
     const userIdToCheck = ctx.message.from.id;
 
-    // if (await isUserSubscribed(userIdToCheck)) {
+    if (await isUserSubscribed(userIdToCheck)) {
         console.log('t')
         try {
             if (text === "/start") {
@@ -266,19 +266,19 @@ bot.on('text', async (ctx) => {
                                     aliExpressLib.getData(response_link)
                                         .then((coinPi) => {
                                             console.log("coinPi : ", coinPi)
-                                            let couponList = "";
+                                            // let couponList = "";
 
-                                            if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
-                                                couponList = coinPi.info.normal.coupon;
-                                            } else {
-                                                couponList = "";
-                                                coinPi.info.normal.coupon.forEach(coupons => {
-                                                    const code = coupons.code;
-                                                    const detail = coupons.detail.replace('طلبات تزيد على US ', '');
-                                                    const desc = coupons.desc.replace('US ', '');
-                                                    couponList += `🎁${desc}/${detail} :${code}\n`;
-                                                });
-                                            }
+                                            // if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
+                                            //     couponList = coinPi.info.normal.coupon;
+                                            // } else {
+                                            //     couponList = "";
+                                            //     coinPi.info.normal.coupon.forEach(coupons => {
+                                            //         const code = coupons.code;
+                                            //         const detail = coupons.detail.replace('طلبات تزيد على US ', '');
+                                            //         const desc = coupons.desc.replace('US ', '');
+                                            //         couponList += `🎁${desc}/${detail} :${code}\n`;
+                                            //     });
+                                            // }
                                             let total;
                                             if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
                                                 var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
@@ -334,7 +334,7 @@ ${coinPi.aff.super}
 📌رابط العرض المحدود: ${coinPi.info.limited.price}
 ${coinPi.aff.limited}
 <b>----------- | ✨ الكوبونات ✨ | -----------</b>
-${couponList}
+
 ` , 
                                                     parse_mode: "HTML",
                                                     ...Markup.inlineKeyboard([
@@ -379,14 +379,14 @@ ${coinPi.aff.limited}
         } catch (e) {
             ctx.reply('حدث خطأ غير متوقع');
         }
-    // } else {
-    //     const replyMarkup2 = {
-    //         inline_keyboard: [
-    //             [{ text: 'اشتراك', url: Channel }],
-    //         ],
-    //     };
-    //     ctx.reply(' اأنت غير مشترك في القناة.', { reply_markup: replyMarkup2 });
-    // }
+    } else {
+        const replyMarkup2 = {
+            inline_keyboard: [
+                [{ text: 'اشتراك', url: Channel }],
+            ],
+        };
+        ctx.reply(' اأنت غير مشترك في القناة.', { reply_markup: replyMarkup2 });
+    }
 });
 app.listen(3000, () => {
     bot.telegram.setWebhook(`${process.env.RENDER_EXTERNAL_URL}/bot`)
