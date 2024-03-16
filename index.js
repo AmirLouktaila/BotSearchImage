@@ -301,7 +301,7 @@ bot.on('text', async (ctx) => {
                                                 total = total;
                                             }
 
-
+ image = coinPi.info.normal.image;
                                             ctx.replyWithPhoto({ url: coinPi.info.normal.image },
                                                 {
 
@@ -344,7 +344,7 @@ ${coinPi.aff.limited}
 
                                                     ])
                                                 }).then(() => {
-                                                    image = coinPi.info.normal.image;
+                                                   
                                                     ctx.deleteMessage(message.message_id)
                                                 })
 
