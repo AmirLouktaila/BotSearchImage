@@ -74,7 +74,7 @@ bot.action("cart", (ctx) => {
 })
 bot.action("search", (ctx) => {
     // ctx.answerCbQuery('Button pressed!');
- let image;
+ var image;
     console.log(`this url :${image}`)
     // async function uploadImage() {
     //     const imageUrl = image
