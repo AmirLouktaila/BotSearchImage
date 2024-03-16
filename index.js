@@ -181,7 +181,7 @@ bot.on('text', async (ctx) => {
     const text = ctx.message.text;
     const userIdToCheck = ctx.message.from.id;
 
-    if (await isUserSubscribed(userIdToCheck)) {
+    // if (await isUserSubscribed(userIdToCheck)) {
         console.log('t')
         try {
             if (text === "/start") {
@@ -379,14 +379,14 @@ ${coinPi.aff.limited}
         } catch (e) {
             ctx.reply('حدث خطأ غير متوقع');
         }
-    } else {
-        const replyMarkup2 = {
-            inline_keyboard: [
-                [{ text: 'اشتراك', url: Channel }],
-            ],
-        };
-        ctx.reply(' اأنت غير مشترك في القناة.', { reply_markup: replyMarkup2 });
-    }
+    // } else {
+    //     const replyMarkup2 = {
+    //         inline_keyboard: [
+    //             [{ text: 'اشتراك', url: Channel }],
+    //         ],
+    //     };
+    //     ctx.reply(' اأنت غير مشترك في القناة.', { reply_markup: replyMarkup2 });
+    // }
 });
 app.listen(3000, () => {
     bot.telegram.setWebhook(`${process.env.RENDER_EXTERNAL_URL}/bot`)
