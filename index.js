@@ -72,10 +72,10 @@ bot.action("cart", (ctx) => {
 
     ctx.reply(cartMessage);
 })
-bot.action("search", (ctx) => {
+bot.action("search", (ctx) => async{
     // ctx.answerCbQuery('Button pressed!');
  var image;
-    console.log(`this url :${image}`)
+   await console.log(`this url :${image}`)
     // async function uploadImage() {
     //     const imageUrl = image
     //     // Download image using Axios
