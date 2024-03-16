@@ -72,85 +72,10 @@ bot.action("cart", (ctx) => {
 
     ctx.reply(cartMessage);
 })
-bot.action("search", (ctx) => async{
+bot.action("search", (ctx) => {
     // ctx.answerCbQuery('Button pressed!');
- var image;
-   await console.log(`this url :${image}`)
-    // async function uploadImage() {
-    //     const imageUrl = image
-    //     // Download image using Axios
-    //     const response = await axios.get(imageUrl, {
-    //         responseType: 'arraybuffer' // To get binary data
-    //     });
 
-    //     // Prepare form-data body
-    //     const formData = new FormData();
-    //     formData.append('image', Buffer.from(response.data), 'photo_2024-03-16_00-23-00.jpg');
-
-    //     // Send POST request to upload the image
-    //     try {
-    //         const uploadResponse = await axios.post('https://www.aliexpressimagesearch.com/api/imagesearch', formData, {
-    //             headers: {
-    //                 ...formData.getHeaders(),
-    //                 'accept-language': 'ar,en-US;q=0.9,en;q=0.8',
-    //                 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
-    //                 'sec-ch-ua-mobile': '?0',
-    //                 'sec-ch-ua-platform': '"Windows"',
-    //                 'sec-fetch-dest': 'empty',
-    //                 'sec-fetch-mode': 'cors',
-    //                 'sec-fetch-site': 'same-origin',
-    //                 'Referer': 'https://www.aliexpressimagesearch.com/',
-    //                 'Referrer-Policy': 'strict-origin-when-cross-origin',
-    //                 'Cookie': '_ga=GA1.1.217241657.1710537751; _ga_6B9B8VPF2X=GS1.1.1710543577.2.0.1710543577.0.0.0'
-    //             }
-    //         });
-    //         uploadResponse.data.cards.forEach((e) => {
-
-    //             const idCatcher = async (id) => {
-    //                 if (/^\d+$/.test(id)) {
-    //                     return id;
-    //                 } else if (id.includes("aliexpress.com")) {
-    //                     if (/\/(\d+)\.html/.test(id)) {
-    //                         return id.match(/\/(\d+)\.html/)[1];
-    //                     } else {
-    //                         try {
-    //                             const response = await axios.head(id, { maxRedirects: 0, validateStatus: (status) => status >= 200 && status < 400 });
-    //                             const decodedUrl = decodeURIComponent(response.headers.location);
-    //                             const regex = /\/(\d+)\.html/;
-    //                             const match = decodedUrl.match(regex);
-    //                             if (match && match[1]) {
-    //                                 return match[1];
-    //                             } else if (decodedUrl.includes('/item/')) {
-    //                                 // Handle the additional AliExpress URL pattern directly
-    //                                 const regexItem = /\/(\d+)\.html/;
-    //                                 const matchItem = decodedUrl.match(regexItem);
-    //                                 if (matchItem && matchItem[1]) {
-    //                                     return matchItem[1];
-    //                                 }
-    //                             }
-    //                         } catch (error) {
-    //                             console.error('Error occurred while fetching the URL:', error);
-    //                             res.status(400).json({ ok: false, error: 'Invalid URL provided' });
-    //                             return null;
-    //                         }
-    //                     }
-    //                 }
-    //                 console.error('Invalid ID or URL provided');
-    //                 return null;
-    //             };
-    //             idCatcher(e.url).then(es => {
-    //                 ctx.reply(`${es} : ${e.price}`);
-    //             })
-    //             //  console.log('Image uploaded successfully:', `${e.url} : ${e.price}`);
-    //         });
-
-    //     } catch (error) {
-    //         console.error('Error uploading image:', error.response ? error.response.data : error.message);
-    //     }
-    // }
-
-    // // Call the function to upload the image
-    // uploadImage();
+    uploadImage();
 
 })
 async function isUserSubscribed(user_id) {
@@ -301,7 +226,79 @@ bot.on('text', async (ctx) => {
                                                 total = total;
                                             }
 
- image = coinPi.info.normal.image;
+    async function uploadImage() {
+        const imageUrl = coinPi.info.normal.image
+        // Download image using Axios
+        const response = await axios.get(imageUrl, {
+            responseType: 'arraybuffer' // To get binary data
+        });
+
+        // Prepare form-data body
+        const formData = new FormData();
+        formData.append('image', Buffer.from(response.data), 'photo_2024-03-16_00-23-00.jpg');
+
+        // Send POST request to upload the image
+        try {
+            const uploadResponse = await axios.post('https://www.aliexpressimagesearch.com/api/imagesearch', formData, {
+                headers: {
+                    ...formData.getHeaders(),
+                    'accept-language': 'ar,en-US;q=0.9,en;q=0.8',
+                    'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': '"Windows"',
+                    'sec-fetch-dest': 'empty',
+                    'sec-fetch-mode': 'cors',
+                    'sec-fetch-site': 'same-origin',
+                    'Referer': 'https://www.aliexpressimagesearch.com/',
+                    'Referrer-Policy': 'strict-origin-when-cross-origin',
+                    'Cookie': '_ga=GA1.1.217241657.1710537751; _ga_6B9B8VPF2X=GS1.1.1710543577.2.0.1710543577.0.0.0'
+                }
+            });
+            uploadResponse.data.cards.forEach((e) => {
+
+                const idCatcher = async (id) => {
+                    if (/^\d+$/.test(id)) {
+                        return id;
+                    } else if (id.includes("aliexpress.com")) {
+                        if (/\/(\d+)\.html/.test(id)) {
+                            return id.match(/\/(\d+)\.html/)[1];
+                        } else {
+                            try {
+                                const response = await axios.head(id, { maxRedirects: 0, validateStatus: (status) => status >= 200 && status < 400 });
+                                const decodedUrl = decodeURIComponent(response.headers.location);
+                                const regex = /\/(\d+)\.html/;
+                                const match = decodedUrl.match(regex);
+                                if (match && match[1]) {
+                                    return match[1];
+                                } else if (decodedUrl.includes('/item/')) {
+                                    // Handle the additional AliExpress URL pattern directly
+                                    const regexItem = /\/(\d+)\.html/;
+                                    const matchItem = decodedUrl.match(regexItem);
+                                    if (matchItem && matchItem[1]) {
+                                        return matchItem[1];
+                                    }
+                                }
+                            } catch (error) {
+                                console.error('Error occurred while fetching the URL:', error);
+                                res.status(400).json({ ok: false, error: 'Invalid URL provided' });
+                                return null;
+                            }
+                        }
+                    }
+                    console.error('Invalid ID or URL provided');
+                    return null;
+                };
+                idCatcher(e.url).then(es => {
+                    ctx.reply(`${es} : ${e.price}`);
+                })
+                //  console.log('Image uploaded successfully:', `${e.url} : ${e.price}`);
+            });
+
+        } catch (error) {
+            console.error('Error uploading image:', error.response ? error.response.data : error.message);
+        }
+    }
+
                                             ctx.replyWithPhoto({ url: coinPi.info.normal.image },
                                                 {
 
